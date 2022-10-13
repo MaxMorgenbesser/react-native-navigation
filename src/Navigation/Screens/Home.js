@@ -1,5 +1,5 @@
 import { Text } from "react-native"
 
-export default function Home (){
-    return (<Text>Home page</Text>)
+export default function  Home(){
+    return<Text>Home</Text>
 }
