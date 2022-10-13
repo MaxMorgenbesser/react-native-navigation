@@ -8,26 +8,47 @@ import { useNavigation } from '@react-navigation/native';
 import Home from './src/Navigation/Screens/Home';
 // import NotHome from './src/Navigation/Components/NotHome';
 import NotHome from './src/Navigation/Screens/NotHome';
+import { useState,createContext, useEffect } from 'react';
+import Login from './src/Navigation/Components/Login';
 // import Navigation from './src/Navigation/Navigation';
 
 const Tab = createBottomTabNavigator()
 
+export const data = createContext()
+
 export default function App() {
-  
-  return (
+  const [loggedin,setLoggedIn] = useState()
+  useEffect(()=>{
+
+    console.log(loggedin)
+  },[setLoggedIn,loggedin])
+  return (<data.Provider value={{setLoggedIn}}>
+    {/* <Button title='login' onPress={()=>setLoggedIn(true)}></Button> */}
     <NavigationContainer>
   <Tab.Navigator>
+{!loggedin ?
+  <Tab.Screen 
+name = "Login"
+component={Login}
+screenOptions={{ headerShown: false }}
+/>
+:
+<>
 <Tab.Screen 
 name = "Home"
 component={Home}
+screenOptions={{ headerShown: false }}
 />
 <Tab.Screen
 name = "NotHome"
 component={NotHome}
 />
-{/* <Button title='go home' onPress={navigation.navigate("Home")}></Button> */}
+
+</>
+}
   </Tab.Navigator>
     </NavigationContainer>
+    </data.Provider>
   );
 }
 
